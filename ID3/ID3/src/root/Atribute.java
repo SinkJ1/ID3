@@ -6,20 +6,12 @@ public class Atribute {
 
 	private String name;
 
-	private String value;
-
 	public Atribute() {
 	}
 
 	public Atribute(int id, String name) {
 		this.id = id;
 		this.name = name;
-	}
-
-	public Atribute(int id, String name, String value) {
-		this.id = id;
-		this.name = name;
-		this.value = value;
 	}
 
 	public int getId() {
@@ -38,17 +30,9 @@ public class Atribute {
 		this.name = name;
 	}
 
-	public String getValue() {
-		return value;
-	}
-
-	public void setValue(String value) {
-		this.value = value;
-	}
-
 	@Override
 	public String toString() {
-		return "Atribute [id=" + id + ", name=" + name + ", value=" + value + "]";
+		return "Atribute [id=" + id + ", name=" + name + "]";
 	}
 
 }

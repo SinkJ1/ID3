@@ -11,15 +11,25 @@ public class Program {
 
 	public static void main(String... args) {
 
-		Object[][] newTable = new Object[][] { { 0, 1 }, { "no", "yes" }, { "yes", "no" }, { "no", "yes" },
-				{ "no", "yes" }, { "yes", "no" }, { "yes", "no" } };
+		Table table = new Table();
+
+		DataSet data = new DataSet();
+
+		table.setTable(data.getNewTable());
+
 		List<Object> transfer = new ArrayList();
 
-		for (int i = 0; i < newTable.length - 1; i++) {
-			transfer.add(newTable[i + 1][1]);
+		List<Object> transfer1 = new ArrayList();
+		
+		for (int i = 0; i < table.getTable().length - 1; i++) {
+		
+			
 		}
 
-		//Parser.counter(Parser.parse(transfer), transfer);
-		System.out.println(Parser.parse(transfer).toString());
+
+		System.out.println(Entropy.EntropyByAtribute(table));
+
+		// System.out.println(Entropy.countEntropy(Parser.counter(transfer)));
+
 	}
 }

@@ -2,38 +2,42 @@ package foFun;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Parser {
 
-	public static List<Object> parse(List<Object> str) {
-		List<Object> a1 = new ArrayList();
-		for (Object a : str) {
-			if (a != a1) {
-				a1.add(a);
-			}
-		}
-		return a1;
+	public static Set<Object> uniqWord(List<Object> str) {
+		Set<Object> uniqKeys = new TreeSet<Object>();
+		uniqKeys.addAll(str);
+		return uniqKeys;
 	}
 
-	public static void counter(List<Object> words, List<Object> column) {
-		List<Object> a1 = new ArrayList();
+	public static List<Object> counter(List<Object> column) {
+		List<Object> countWordInColumn = new ArrayList();
+		Set<Object> words = uniqWord(column);
 		int counter = 0;
 		for (Object word : words) {
 			for (Object findWord : column) {
 				if (word.equals(findWord)) {
 					counter++;
-					a1.add(word + " count - " + counter);
 				}
-				System.out.println(column.size() + " " + words.size());
-				break;
 			}
+			countWordInColumn.add(word + "-" + counter);
 			counter = 0;
 		}
-
-		for (Object a : a1) {
-			System.out.println(a);
-		}
-
+		return countWordInColumn;
 	}
-
+	
+	public static List<Object> just(List<Object> atribute){
+		
+		Set<Object> values = uniqWord(atribute);
+		
+				
+		
+		
+		
+		
+		return null;
+	}
 }

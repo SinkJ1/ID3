@@ -1,13 +1,36 @@
 package dataSet;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import root.Atribute;
 
 public class DataSet {
 
-	int id = 0;
+	private int id = 0;
+	
+	private final static Atribute outlook = new Atribute(1, "Outlook");
 
+	private final static Atribute temperature = new Atribute(2, "Temperature");
+	
+	private final static Atribute humidity = new Atribute(3, "Humidity");
+	
+	private final static Atribute windy = new Atribute(4, "Windy");
+	
+	private final static Atribute playTennis = new Atribute(5, "PlayTennis");
+	
+	private static List<Atribute> atributeList = new ArrayList();
+	
+	static {
+		atributeList.add(outlook);
+		atributeList.add(temperature);
+		atributeList.add(humidity);
+		atributeList.add(windy);
+		atributeList.add(playTennis);
+	}
+		
 	private Object[][] newTable = new Object[][] {
-		{getId() , new Atribute(1, "Outlook"), new Atribute(2, "Temperature"),new Atribute(3, "Humidity"), new Atribute(4, "Windy"), new Atribute(5, "PlayTennis") }, 
+		{getId() , outlook.getName(), temperature.getName(),humidity.getName(), windy.getName(), playTennis.getName() }, 
 		{getId() , "Sunny","hot","High","Weak","No"},
 		{getId() , "Sunny","hot","High","Strong","No"},
 		{getId() , "Overcast","hot","High","Weak","Yes"},
@@ -25,12 +48,14 @@ public class DataSet {
 	};
 	
 	private int getId() {
-		id++;
-		return id;
+		return id++;
 	}
 
 	public Object[][] getNewTable() {
 		return newTable;
 	}
-	
+
+	public static List<Atribute> getAtributeList() {
+		return atributeList;
+	}
 }
