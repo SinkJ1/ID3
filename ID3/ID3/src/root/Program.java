@@ -25,11 +25,11 @@ public class Program {
 		
 			
 		}
-
-
-		System.out.println(Entropy.EntropyByAtribute(table));
+		
+		Entropy.EntropyByAtribute(table);
 
 		// System.out.println(Entropy.countEntropy(Parser.counter(transfer)));
-
+		
+		
 	}
 }

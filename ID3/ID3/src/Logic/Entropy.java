@@ -1,6 +1,8 @@
 package Logic;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import dataSet.DataSet;
 import foFun.Parser;
@@ -31,7 +33,10 @@ public class Entropy {
 	}
 
 	private static double getLog(double x, double o) {
-		return Math.log10(x) / Math.log10(o);
+		if (x > 0) {
+			return Math.log10(x) / Math.log10(o);
+		} else
+			return 0;
 	}
 
 	public static double countEntropy(List<Object> elements) {
@@ -55,21 +60,66 @@ public class Entropy {
 		return 0.0;
 	}
 
-	public static double EntropyByAtribute(Table table) {
+	public static void EntropyByAtribute(Table table) {
 
-		List<Object> answer = null;
+		List<Object> answer = new ArrayList();
 		List<Object> values = null;
 
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
-				if (table.getTable()[i][j] == DataSet.getAtributeList().get(i).getName()) {
-				System.out.println("ddd");
+		for (int i = 0; i < table.getTable().length; i++) {
+			/*
+			 * for (int j = 0; j < table.getTable().length; j++) { for (int b = 0; b <
+			 * DataSet.getAtributeList().size(); b++) { if
+			 * (table.getTable()[i][j].toString().equals(DataSet.getAtributeList().get(b).
+			 * getName())) { for (int a = 0; a < table.getTable().length - 1; a++) {
+			 * answer.add(table.getTable()[a +
+			 * 1][DataSet.getAtributeList().get(b).getId()]); }
+			 * System.out.println(DataSet.getAtributeList().get(b) + "----"
+			 * +countAnswerForAtribute(Parser.uniqWord(answer), table)); } } } }
+			 */
+
+		}
+	}
+
+	/*
+	 * сложить все yes no в один лист и отправить в метод counter вызвать метод для
+	 * подсчёта энтропии
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
+
+	private static List<Object> countAnswerForAtribute(Set<Object> list, Table table) {
+
+		List<Object> values = new ArrayList();
+
+		if (!list.isEmpty()) {
+			for (Object test : list) {
+				String findValue = test.toString();
+				for (int i = 0; i < table.getTable().length - 1; i++) {
+					if (findValue.equals(table.getTable()[i + 1][1]) && counter(findValue, table, 1) >= values.size()) {
+						values.add(table.getTable()[i + 1][5]);
+					}
 				}
+
+				System.out.println(findValue + "-" + countEntropy(Parser.counter(values)));
+
+				values.clear();
+			}
+		}
+		return null;
+	}
+
+	private static int counter(String value, Table table, int id) {
+
+		int count = 0;
+		for (int i = 0; i < table.getTable().length - 1; i++) {
+			if (table.getTable()[i + 1][id].equals(value)) {
+				count++;
 			}
 		}
 
-		return (-p / (p + n)) * getLog((p / (p + n)), 2) - (n / (p + n)) * getLog(n / (p + n), 2);
-
+		return count;
 	}
 
 }

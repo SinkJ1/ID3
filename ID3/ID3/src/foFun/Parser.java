@@ -26,6 +26,11 @@ public class Parser {
 			countWordInColumn.add(word + "-" + counter);
 			counter = 0;
 		}
+		
+		if(countWordInColumn.size() == 1) {
+			countWordInColumn.add("No" + "-" + 0);
+		}
+		
 		return countWordInColumn;
 	}
 	
