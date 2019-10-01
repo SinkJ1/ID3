@@ -63,21 +63,22 @@ public class Entropy {
 	public static void EntropyByAtribute(Table table) {
 
 		List<Object> answer = new ArrayList();
-		List<Object> values = null;
+		List<Object> values = new ArrayList();
+		
+			for(int i = 0; i < table.getTable().length;i++) {
+				for(int j = 0; j < DataSet.getAtributeList().size();j++) {
+					
+						values.add(DataSet.getAtributeList().get(j) + "--" +table.getTable()[i][DataSet.getAtributeList().get(j).getId()]);						
+					
+				}
+			}
 
-		for (int i = 0; i < table.getTable().length; i++) {
-			/*
-			 * for (int j = 0; j < table.getTable().length; j++) { for (int b = 0; b <
-			 * DataSet.getAtributeList().size(); b++) { if
-			 * (table.getTable()[i][j].toString().equals(DataSet.getAtributeList().get(b).
-			 * getName())) { for (int a = 0; a < table.getTable().length - 1; a++) {
-			 * answer.add(table.getTable()[a +
-			 * 1][DataSet.getAtributeList().get(b).getId()]); }
-			 * System.out.println(DataSet.getAtributeList().get(b) + "----"
-			 * +countAnswerForAtribute(Parser.uniqWord(answer), table)); } } } }
-			 */
-
-		}
+			System.out.println(counterLengthColumn(table, DataSet.getAtributeList().get(1).getId()));
+			
+			for(Object a1 : values) {
+				//System.out.println(a1);
+			}
+			
 	}
 
 	/*
@@ -95,15 +96,13 @@ public class Entropy {
 
 		if (!list.isEmpty()) {
 			for (Object test : list) {
-				String findValue = test.toString();
 				for (int i = 0; i < table.getTable().length - 1; i++) {
-					if (findValue.equals(table.getTable()[i + 1][1]) && counter(findValue, table, 1) >= values.size()) {
+					if (test.toString().equals(table.getTable()[i + 1][1])
+							&& counter(test.toString(), table, 1) >= values.size()) {
 						values.add(table.getTable()[i + 1][5]);
 					}
 				}
-
-				System.out.println(findValue + "-" + countEntropy(Parser.counter(values)));
-
+				System.out.println(test.toString() + "-" + countEntropy(Parser.counter(values)));
 				values.clear();
 			}
 		}
@@ -122,4 +121,30 @@ public class Entropy {
 		return count;
 	}
 
+	private static int counterLengthColumn(Table table, int id) {
+
+		int count = 0;
+		for (int i = 0; i < table.getTable().length - 1; i++) {
+			if (table.getTable()[i + 1][id] != null) {
+				count++;
+			}
+		}
+
+		return count;
+	}
+
 }
+/*for (int i = 0; i < table.getTable().length; i++) {
+for (int j = 0; j < table.getTable().length; j++) {
+	for (int b = 0; b < DataSet.getAtributeList().size(); b++) {
+		if (table.getTable()[i][j].toString().equals(DataSet.getAtributeList().get(b).getName())
+				&& DataSet.getAtributeList().get(b).getId() == 1) {
+			for (int a = 0; a < table.getTable().length - 1; a++) {
+				answer.add(table.getTable()[a + 1][DataSet.getAtributeList().get(b).getId()]);
+			}
+			System.out.println(countAnswerForAtribute(Parser.uniqWord(answer), table));
+			break;
+		}
+	}
+}
+}*/
