@@ -14,24 +14,6 @@ public class Entropy {
 
 	private static double p;
 
-	private static double total;
-
-	public static double getN() {
-		return n;
-	}
-
-	public static double getP() {
-		return p;
-	}
-
-	public static double getTotal() {
-		return total;
-	}
-
-	public void setTotal(double total) {
-		this.total = total;
-	}
-
 	private static double getLog(double x, double o) {
 		if (x > 0) {
 			return Math.log10(x) / Math.log10(o);
@@ -55,54 +37,58 @@ public class Entropy {
 		return (-p / (p + n)) * getLog((p / (p + n)), 2) - (n / (p + n)) * getLog(n / (p + n), 2);
 	}
 
-	public static double averageEntropy() {
-
-		return 0.0;
-	}
-
 	public static void EntropyByAtribute(Table table) {
 
-		List<Object> answer = new ArrayList();
+		List<Object> gain = new ArrayList();
 		List<Object> values = new ArrayList();
 
 		int j = 1;
 
 		int i = 1;
-		
-		while(i <= 13 && j !=5) {
+
+		while (i <= 13 && j != 5) {
 			values.add(table.getTable()[i][j]);
 			i++;
-			if(i >= 13) {
-				System.out.println("-----------" + "\n");
-				countAnswerForAtribute(Parser.uniqWord(values),table,j);
-				i = 0;
+			if (i >= 13) {
+				gain.add(table.getTable()[0][j] + "-" + countAnswerForAtribute(Parser.uniqWord(values), table, j));
+				i = 1;
 				j++;
 				values.clear();
 			}
 		}
-				
-
+		for (Object a : gain) {
+			System.out.println(a);
+		}
 	}
 
-	private static void countAnswerForAtribute(Set<Object> list, Table table, int id) {
+	private static Double countAnswerForAtribute(Set<Object> list, Table table, int id) {
 
 		List<Object> values = new ArrayList();
+		List<Double> gain = new ArrayList();
+		double perem = 0.0;
+		double avg = 0;
+		double iterator = 0;
 
 		if (!list.isEmpty()) {
 			for (Object test : list) {
 				for (int i = 0; i < table.getTable().length - 1; i++) {
 					if (test.toString().equals(table.getTable()[i + 1][id])
-							&& counter(test.toString(), table, id) >= values.size()) {
+							&& counterValuesInColumn(test.toString(), table, id) >= values.size()) {
 						values.add(table.getTable()[i + 1][5]);
 					}
 				}
-				System.out.println(test.toString() + "-" + countEntropy(Parser.counter(values)));
+
+				perem = (values.size() / counterLengthColumn(table, 5)) * countEntropy(Parser.counter(values));
+				avg += perem;
+				iterator = countEntropy(Parser.counter(returnAnswerColumn(table))) - avg;
 				values.clear();
 			}
+			gain.add(iterator);
 		}
+		return gain.get(0);
 	}
 
-	private static int counter(String value, Table table, int id) {
+	private static int counterValuesInColumn(String value, Table table, int id) {
 
 		int count = 0;
 		for (int i = 0; i < table.getTable().length - 1; i++) {
@@ -114,7 +100,7 @@ public class Entropy {
 		return count;
 	}
 
-	private static int counterLengthColumn(Table table, int id) {
+	private static double counterLengthColumn(Table table, int id) {
 
 		int count = 0;
 		for (int i = 0; i < table.getTable().length - 1; i++) {
@@ -126,15 +112,14 @@ public class Entropy {
 		return count;
 	}
 
+	private static List<Object> returnAnswerColumn(Table table) {
+
+		List<Object> list = new ArrayList();
+		for (int i = 0; i < table.getTable().length - 1; i++) {
+			list.add(table.getTable()[i + 1][5]);
+		}
+
+		return list;
+	}
+
 }
-/*
- * for (int i = 0; i < table.getTable().length; i++) { for (int j = 0; j <
- * table.getTable().length; j++) { for (int b = 0; b <
- * DataSet.getAtributeList().size(); b++) { if
- * (table.getTable()[i][j].toString().equals(DataSet.getAtributeList().get(b).
- * getName()) && DataSet.getAtributeList().get(b).getId() == 1) { for (int a =
- * 0; a < table.getTable().length - 1; a++) { answer.add(table.getTable()[a +
- * 1][DataSet.getAtributeList().get(b).getId()]); }
- * System.out.println(countAnswerForAtribute(Parser.uniqWord(answer), table));
- * break; } } } }
- */
