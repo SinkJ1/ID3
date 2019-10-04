@@ -1,11 +1,14 @@
 package Logic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import dataSet.DataSet;
 import foFun.Parser;
+import root.Atribute;
 import root.Table;
 
 public class Entropy {
@@ -39,8 +42,8 @@ public class Entropy {
 
 	public static void EntropyByAtribute(Table table) {
 
-		List<Object> gain = new ArrayList();
 		List<Object> values = new ArrayList();
+		Map<Object, Double> gain = new HashMap();
 
 		int j = 1;
 
@@ -50,15 +53,13 @@ public class Entropy {
 			values.add(table.getTable()[i][j]);
 			i++;
 			if (i >= 13) {
-				gain.add(table.getTable()[0][j] + "-" + countAnswerForAtribute(Parser.uniqWord(values), table, j));
+				gain.put(table.getTable()[0][j], countAnswerForAtribute(Parser.uniqWord(values), table, j));
 				i = 1;
 				j++;
 				values.clear();
 			}
 		}
-		for (Object a : gain) {
-			System.out.println(a);
-		}
+		Gain.findMax(gain);
 	}
 
 	private static Double countAnswerForAtribute(Set<Object> list, Table table, int id) {
