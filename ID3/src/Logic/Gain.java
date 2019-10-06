@@ -33,7 +33,7 @@ public class Gain {
 		createNode(maxGain);
 
 		for (Map.Entry<Object, Double> map : maxGain.entrySet()) {
-			System.out.println(map.getKey() + "------------");
+			System.out.println(map.getKey() + "------------> Node");
 			Tree.addValueInNodeList(map.getKey().toString());
 		}
 	}

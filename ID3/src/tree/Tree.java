@@ -1,11 +1,15 @@
 package tree;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Tree {
 
-	private static Set<String> nodeList = new HashSet();
+	private static Set<String> nodeList = Collections.newSetFromMap(new ConcurrentHashMap<>());
+
+	private static Set<String> boofernodeList = new HashSet();
 
 	private static Set<String> edgeList = new HashSet();
 
