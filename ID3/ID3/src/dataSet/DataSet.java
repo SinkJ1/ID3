@@ -1,36 +1,11 @@
 package dataSet;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import root.Atribute;
-
 public class DataSet {
 
 	private int id = 0;
-	
-	private final static Atribute outlook = new Atribute(1, "Outlook");
-
-	private final static Atribute temperature = new Atribute(2, "Temperature");
-	
-	private final static Atribute humidity = new Atribute(3, "Humidity");
-	
-	private final static Atribute windy = new Atribute(4, "Windy");
-	
-	private final static Atribute playTennis = new Atribute(5, "PlayTennis");
-	
-	private static List<Atribute> atributeList = new ArrayList();
-	
-	static {
-		atributeList.add(outlook);
-		atributeList.add(temperature);
-		atributeList.add(humidity);
-		atributeList.add(windy);
-		atributeList.add(playTennis);
-	}
 		
 	private Object[][] newTable = new Object[][] {
-		{getId() , outlook.getName(), temperature.getName(),humidity.getName(), windy.getName(), playTennis.getName() }, 
+		{getId() , "Outlook", "Temperature","Humidity", "Windy", "PlayTannys" }, 
 		{getId() , "Sunny","hot","High","Weak","No"},
 		{getId() , "Sunny","hot","High","Strong","No"},
 		{getId() , "Overcast","hot","High","Weak","Yes"},
@@ -43,7 +18,7 @@ public class DataSet {
 		{getId() , "Rainy","Mild","Normal","Weak","Yes"},
 		{getId() , "Sunny","Mild","Normal","Strong","Yes"},
 		{getId() , "Overcast","Mild","High","Strong","Yes"},
-		{getId() , "Overcast","Hot","Normal","Weak","Yes"},
+		{getId() , "Overcast","hot","Normal","Weak","Yes"},
 		{getId() , "Rainy","Mild","High","Strong","No"}
 	};
 	
@@ -55,7 +30,4 @@ public class DataSet {
 		return newTable;
 	}
 
-	public static List<Atribute> getAtributeList() {
-		return atributeList;
-	}
 }

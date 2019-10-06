@@ -5,10 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import dataSet.DataSet;
 import foFun.Parser;
-import root.Atribute;
 import root.Table;
 
 public class Entropy {
@@ -40,7 +38,7 @@ public class Entropy {
 		return (-p / (p + n)) * getLog((p / (p + n)), 2) - (n / (p + n)) * getLog(n / (p + n), 2);
 	}
 
-	public static void EntropyByAtribute(Table table) {
+	public static void getGain(Table table) {
 
 		List<Object> values = new ArrayList();
 		Map<Object, Double> gain = new HashMap();
@@ -49,11 +47,11 @@ public class Entropy {
 
 		int i = 1;
 
-		while (i <= 13 && j != 5) {
+		while (i <= table.getTable().length && j != table.getColumnLength()-1) {
 			values.add(table.getTable()[i][j]);
 			i++;
-			if (i >= 13) {
-				gain.put(table.getTable()[0][j], countAnswerForAtribute(Parser.uniqWord(values), table, j));
+			if (i >= table.getTable().length) {
+				gain.put(table.getTable()[0][j], countGain(Parser.uniqWord(values), table, j));
 				i = 1;
 				j++;
 				values.clear();
@@ -62,7 +60,7 @@ public class Entropy {
 		Gain.findMax(gain);
 	}
 
-	private static Double countAnswerForAtribute(Set<Object> list, Table table, int id) {
+	private static Double countGain(Set<Object> list, Table table, int id) {
 
 		List<Object> values = new ArrayList();
 		List<Double> gain = new ArrayList();
@@ -74,12 +72,12 @@ public class Entropy {
 			for (Object test : list) {
 				for (int i = 0; i < table.getTable().length - 1; i++) {
 					if (test.toString().equals(table.getTable()[i + 1][id])
-							&& counterValuesInColumn(test.toString(), table, id) >= values.size()) {
-						values.add(table.getTable()[i + 1][5]);
+							&& counterValueInColumn(test.toString(), table, id) >= values.size()) {
+						values.add(table.getTable()[i + 1][table.getColumnLength() - 1]);
 					}
 				}
-
-				perem = (values.size() / counterLengthColumn(table, 5)) * countEntropy(Parser.counter(values));
+				perem = (values.size() / counterLengthColumn(table, table.getColumnLength() - 1))
+						* countEntropy(Parser.counter(values));
 				avg += perem;
 				iterator = countEntropy(Parser.counter(returnAnswerColumn(table))) - avg;
 				values.clear();
@@ -89,7 +87,7 @@ public class Entropy {
 		return gain.get(0);
 	}
 
-	private static int counterValuesInColumn(String value, Table table, int id) {
+	public static int counterValueInColumn(String value, Table table, int id) {
 
 		int count = 0;
 		for (int i = 0; i < table.getTable().length - 1; i++) {
@@ -117,7 +115,7 @@ public class Entropy {
 
 		List<Object> list = new ArrayList();
 		for (int i = 0; i < table.getTable().length - 1; i++) {
-			list.add(table.getTable()[i + 1][5]);
+			list.add(table.getTable()[i + 1][table.getColumnLength()-1]);
 		}
 
 		return list;

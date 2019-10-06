@@ -8,9 +8,7 @@ import java.util.TreeSet;
 public class Parser {
 
 	public static Set<Object> uniqWord(List<Object> str) {
-		Set<Object> uniqKeys = new TreeSet<Object>();
-		uniqKeys.addAll(str);
-		return uniqKeys;
+		return new TreeSet<Object>(str);
 	}
 
 	public static List<Object> counter(List<Object> column) {
@@ -26,23 +24,12 @@ public class Parser {
 			countWordInColumn.add(word + "-" + counter);
 			counter = 0;
 		}
-		
-		if(countWordInColumn.size() == 1) {
+
+		if (countWordInColumn.size() == 1) {
 			countWordInColumn.add("No" + "-" + 0);
 		}
-		
+
 		return countWordInColumn;
 	}
-	
-	public static List<Object> just(List<Object> atribute){
-		
-		Set<Object> values = uniqWord(atribute);
-		
-				
-		
-		
-		
-		
-		return null;
-	}
+
 }
