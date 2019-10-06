@@ -18,9 +18,9 @@ public class Gain {
 		double max = 0;
 		String atribute = "";
 		int i = 0;
-		
+
 		Map<Object, Double> maxGain = new HashMap();
-		
+
 		for (Map.Entry<Object, Double> findMax : gain.entrySet()) {
 
 			if (findMax.getValue() > max) {
@@ -33,6 +33,7 @@ public class Gain {
 		createNode(maxGain);
 
 		for (Map.Entry<Object, Double> map : maxGain.entrySet()) {
+			System.out.println(map.getKey() + "------------");
 			Tree.addValueInNodeList(map.getKey().toString());
 		}
 	}

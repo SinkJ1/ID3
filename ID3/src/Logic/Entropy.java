@@ -2,6 +2,7 @@ package Logic;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -47,7 +48,7 @@ public class Entropy {
 
 		int i = 1;
 
-		while (i <= table.getTable().length && j != table.getColumnLength()-1) {
+		while (i <= table.getTable().length && j != table.getColumnLength() - 1) {
 			values.add(table.getTable()[i][j]);
 			i++;
 			if (i >= table.getTable().length) {
@@ -57,7 +58,11 @@ public class Entropy {
 				values.clear();
 			}
 		}
-		Gain.findMax(gain);
+		if(checkAnswer(gain)) {
+			Gain.findMax(gain);
+		}else {
+			System.out.println(table.getTable()[i][table.getColumnLength()-1]);
+		}
 	}
 
 	private static Double countGain(Set<Object> list, Table table, int id) {
@@ -115,10 +120,24 @@ public class Entropy {
 
 		List<Object> list = new ArrayList();
 		for (int i = 0; i < table.getTable().length - 1; i++) {
-			list.add(table.getTable()[i + 1][table.getColumnLength()-1]);
+			list.add(table.getTable()[i + 1][table.getColumnLength() - 1]);
 		}
 
 		return list;
 	}
 
+	private static boolean checkAnswer(Map<Object, Double> gain) {
+
+		Set<Double> uniqValue = new HashSet();
+		for (Map.Entry<Object, Double> check : gain.entrySet()) {
+			uniqValue.add(check.getValue());
+		}
+
+		if (uniqValue.size() == 1) {
+			return false;
+		} else {
+			return true;
+		}
+
+	}
 }

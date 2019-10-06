@@ -66,6 +66,7 @@ public class Filtration {
 			a = 1;
 			b = 0;
 			arrayList.add(newTable);
+			System.out.println(set + "----------------------------------------");
 			Tree.addValueInEdgeList(set.toString());
 		}
 		return arrayList;
