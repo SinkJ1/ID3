@@ -10,10 +10,11 @@ import root.Table;
 import tree.Edge;
 import tree.Node;
 import tree.Tree;
+import tree.Trest;
 
 public class Gain {
 
-	public static void findMax(Map<Object, Double> gain) {
+	public static String findMax(Map<Object, Double> gain) {
 
 		double max = 0;
 		String atribute = "";
@@ -30,21 +31,13 @@ public class Gain {
 		}
 
 		maxGain.put(atribute, max);
-		createNode(maxGain);
+		
 
 		for (Map.Entry<Object, Double> map : maxGain.entrySet()) {
-			System.out.println(map.getKey() + "------------> Node");
+		//	System.out.println(map.getKey() + "------------> Node");
 			Tree.addValueInNodeList(map.getKey().toString());
 		}
-	}
-
-	private static void createNode(Map<Object, Double> node) {
-
-		List<Node> nodes = new ArrayList();
-		for (Map.Entry<Object, Double> map : node.entrySet()) {
-			Node newNode = new Node(1, map.getKey().toString(), nodes);
-
-		}
+		return atribute;
 	}
 
 }

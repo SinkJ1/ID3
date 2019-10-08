@@ -3,10 +3,12 @@ package foFun;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
 import Logic.Entropy;
 import root.Table;
+import tree.Edge;
+import tree.Node;
 import tree.Tree;
+import tree.Trest;
 
 public class Filtration {
 
@@ -30,7 +32,7 @@ public class Filtration {
 
 		List<Object> values = new ArrayList();
 
-		for (int i = 0; i < matrix.length-1; i++) {
+		for (int i = 0; i < matrix.length - 1; i++) {
 			values.add(matrix[i + 1][id]);
 		}
 		return values;
@@ -47,6 +49,8 @@ public class Filtration {
 		Set<Object> uniqWord = Parser.uniqWord(column);
 		Object[][] newTable = new Object[0][1];
 
+		List<Edge> edgeList = new ArrayList();
+		
 		for (Object set : uniqWord) {
 			newTable = new Object[Entropy.counterValueInColumn(set.toString(), table, id) + 1][table.getColumnLength()
 					- 1];
@@ -66,8 +70,15 @@ public class Filtration {
 			a = 1;
 			b = 0;
 			arrayList.add(newTable);
+			
+			edgeList.add(new Edge(new Node(" "),set.toString()));
+			
 			System.out.println(set + "----------------------------------------> Edge");
 			Tree.addValueInEdgeList(set.toString());
+		}
+		
+		for(Node node:Trest.getNodeList()) {
+				node.setEdge(edgeList);				
 		}
 		return arrayList;
 	}

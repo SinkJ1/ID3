@@ -9,8 +9,6 @@ public class Tree {
 
 	private static Set<String> nodeList = Collections.newSetFromMap(new ConcurrentHashMap<>());
 
-	private static Set<String> boofernodeList = new HashSet();
-
 	private static Set<String> edgeList = new HashSet();
 
 	public static void addValueInNodeList(String value) {

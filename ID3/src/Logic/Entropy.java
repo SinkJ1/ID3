@@ -38,8 +38,10 @@ public class Entropy {
 		}
 		return (-p / (p + n)) * getLog((p / (p + n)), 2) - (n / (p + n)) * getLog(n / (p + n), 2);
 	}
-
-	public static void getGain(Table table) {
+	
+	
+	public static Map<String,String> getGain(Table table) {
+		Map<String,String> maxGain = new HashMap();
 
 		List<Object> values = new ArrayList();
 		Map<Object, Double> gain = new HashMap();
@@ -59,10 +61,11 @@ public class Entropy {
 			}
 		}
 		if(checkAnswer(gain)) {
-			Gain.findMax(gain);
+			maxGain.put("Node",Gain.findMax(gain));
 		}else {
-			System.out.println(table.getTable()[i][table.getColumnLength()-1]);
+			maxGain.put("Answer", table.getTable()[i][table.getColumnLength()-1].toString());
 		}
+		return maxGain;
 	}
 
 	private static Double countGain(Set<Object> list, Table table, int id) {
