@@ -21,52 +21,49 @@ public class Program {
 
 	public static void main(String... args) {
 
+		List<Object[][]> list = new ArrayList();
+		List<Object[][]> list2 = new ArrayList();
+
 		Table table = new Table();
 
 		DataSet data = new DataSet();
-		
-		Map<String, List<Object[][]>> map = new HashMap();
 
 		table.setTable(data.getNewTable());
-		Entropy.getGain(table);
 
-		List<Object[][]> list;
-		List<Object[][]> list2 = new ArrayList();
-		for (String aa : Tree.getNodeList()) {
-			list = Filtration.getNewTable(table, Filtration.getColumn(table, Filtration.getColumnIndex(table, aa)),
-					Filtration.getColumnIndex(table, aa));
-			map.put(aa,list);
-		}
+		while (Tree.getNodeList().isEmpty()) {
 
-		while (!Tree.getNodeList().isEmpty()) {
+			Entropy.getGain(table);
 
-			/*
-			 *  дерево строится не в глубину, а по строкам теряеется нужная таблица и
-		  	 *	операции происходят с другой исправить!!!
-			 * */
-
-			for (String aa : Tree.getNodeList()) {
-				System.out.println(aa + "-->");
-				Tree.getNodeList().remove(aa);
-				list = Filtration.getNewTable(table, Filtration.getColumn(table, Filtration.getColumnIndex(table, aa)),
-						Filtration.getColumnIndex(table, aa));
-				while (!list.isEmpty()) {
-					for (Object[][] object : list) {
-						table.setTable(object);
-						Entropy.getGain(table);
-						list.remove(0);
-						break;
+			for (String nodeInTree : Tree.getNodeList()) {
+				System.out.println(nodeInTree + "<-");
+				list = Filtration.getNewTable(table,
+						Filtration.getColumn(table, Filtration.getColumnIndex(table, nodeInTree)),
+						Filtration.getColumnIndex(table, nodeInTree));
+				for (Object[][] edge : list) {
+					table.setTable(edge);
+					for (Map.Entry<String, String> map : Entropy.getGain(table).entrySet()) {
+						if (map.getKey().equals("Answer")) {
+							System.out.println(map.getValue());
+							break;
+						} else
+							System.out.println(map.getValue() + "Node--->");
+						list2 = Filtration.getNewTable(table,
+								Filtration.getColumn(table, Filtration.getColumnIndex(table, map.getValue())),
+								Filtration.getColumnIndex(table, map.getValue()));
+						for (Object[][] nextEdge : list2) {
+							table.setTable(nextEdge);
+							for (Map.Entry<String, String> map1 : Entropy.getGain(table).entrySet()) {
+								if (map1.getKey().equals("Answer")) {
+									System.out.println(map1.getValue());
+									break;
+								}
+							}
+						}
 					}
 				}
-				
+
 			}
+
 		}
-
-		for (String a : Tree.getNodeList()) {
-
-			System.out.println(a  + "ther node");
-		}
-
 	}
-
 }

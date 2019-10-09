@@ -38,8 +38,7 @@ public class Entropy {
 		}
 		return (-p / (p + n)) * getLog((p / (p + n)), 2) - (n / (p + n)) * getLog(n / (p + n), 2);
 	}
-	
-	
+
 	public static Map<String,String> getGain(Table table) {
 		Map<String,String> maxGain = new HashMap();
 
