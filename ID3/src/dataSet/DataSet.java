@@ -21,7 +21,6 @@ public class DataSet {
 		{getId() , "Overcast","hot","Normal","Weak","Yes"},						//13
 		{getId() , "Rainy","Mild","High","Strong","No"}							//14
 	};
-	
 	private int getId() {
 		return id++;
 	}
